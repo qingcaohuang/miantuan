@@ -4,7 +4,7 @@ import pandas as pd
 import os
 
 # 程序版本号定义
-VERSION = "v1.5"
+VERSION = "v1.51"
 
 # --- 1. 页面配置 ---
 st.set_page_config(page_title=f"烘焙面团计算程序 {VERSION}", layout="wide")
@@ -494,7 +494,7 @@ def export_pdf():
         pdf.set_text_color(0, 0, 0)
         
         # 1. 面粉适配建议
-        pdf.write(4, "a. 面粉适配")
+        pdf.write(4, "a. 面粉适配建议：")
         pdf.multi_cell(0, 4, current_advice)
         # 2. 披萨前种建议
         if pizza_advice:
@@ -514,7 +514,7 @@ if st.button("🚀 生成配方 PDF"):
     st.download_button(
         label="📥 下载 PDF 文件",
         data=pdf_data,
-        file_name=f"{b_type}_recipe_v1.5.pdf",
+        file_name=f"{b_type}_recipe_v1.51.pdf",
         mime="application/pdf"
     )
     # --- 修改10：检测 font.ttf ---
