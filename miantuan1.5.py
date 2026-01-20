@@ -57,6 +57,7 @@ def calculate_recipe(args):
     # 前种/天然酵母计算逻辑
     if args['use_pre']:
         res['pre_flour'] = F * args['pre_ratio']
+        res['pre_ratio_val'] = args['pre_ratio'] * 100
         res['pre_water'] = res['pre_flour'] * args['pre_hydra']
         res['pre_total'] = res['pre_flour'] + res['pre_water']
         res['pre_hydra_val'] = args['pre_hydra'] * 100
@@ -287,8 +288,8 @@ with col_right:
     if use_pre:
         st.subheader("二、前种配置详情")
         df_pre = pd.DataFrame({
-            "配置项": ["前种类型", "前种总重", "前种面粉", "前种水量", "前种水合率"],
-            "数值": [data['pre_class'], f"{data['pre_total']:.1f}g", f"{data['pre_flour']:.1f}g", f"{data['pre_water']:.1f}g", f"{data['pre_hydra_val']:.1f}%"]
+            "配置项": ["前种类型", "前种占比", "前种总重", "前种面粉", "前种水量", "前种水合率"],
+            "数值": [data['pre_class'], f"{data['pre_ratio_val']:.1f}%", f"{data['pre_total']:.1f}g", f"{data['pre_flour']:.1f}g", f"{data['pre_water']:.1f}g", f"{data['pre_hydra_val']:.1f}%"]
         })
         st.table(df_pre)
 
@@ -416,9 +417,10 @@ def export_pdf():
     # 3. Preferment
     if use_pre:
         df_pre_pdf = pd.DataFrame({
-            "项目": ["前种类型", "前种总重", "前种粉", "前种水量", "前种水合率"],
+            "项目": ["前种类型", "前种占比", "前种总重", "前种粉", "前种水量", "前种水合率"],
             "值": [
                 data['pre_class'],
+                f"{data['pre_ratio_val']:.1f}%",
                 f"{data['pre_total']:.1f}g",
                 f"{data['pre_flour']:.1f}g",
                 f"{data['pre_water']:.1f}g",
