@@ -4,7 +4,7 @@ import pandas as pd
 import os
 
 # 程序版本号定义
-VERSION = "v1.52"
+VERSION = "v1.5.3"
 
 # --- 1. 页面配置 ---
 st.set_page_config(page_title=f"烘焙面团计算程序 {VERSION}", layout="wide")
@@ -195,7 +195,8 @@ pre_r, pre_h = 0.0, 0.0
 if use_pre:
     pre_template = st.sidebar.selectbox("选择前种类型", ["Poolish (液种)", "Biga (意式硬种)", "天然酵母 (鲁邦种)"])
     pc1, pc2 = st.sidebar.columns(2)
-    pre_r = pc1.number_input("前种占比(%)", value=20.0, step=0.1, format="%.1f") / 100
+    # --- 修改点：添加 help 参数 ---
+    pre_r = pc1.number_input("前种占比(%)", value=20.0, step=0.1, format="%.1f", help="前种占比是指所用前种中的面粉占整个配方中面粉的百分比，即烘焙百分比。") / 100
     default_h = 100.0 if "天然酵母" in pre_template else (100.0 if "Poolish" in pre_template else 50.0)
     pre_h = pc2.number_input("前种水合率(%)", value=default_h, step=0.1, format="%.1f") / 100
 
@@ -514,7 +515,7 @@ if st.button("🚀 生成配方 PDF"):
     st.download_button(
         label="📥 下载 PDF 文件",
         data=pdf_data,
-        file_name=f"{b_type}_recipe_v1.52.pdf",
+        file_name=f"{b_type}_recipe_v1.5.3.pdf",
         mime="application/pdf"
     )
     # --- 修改10：检测 font.ttf ---
